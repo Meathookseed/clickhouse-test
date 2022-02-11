@@ -27,6 +27,7 @@ func (h *Handler) createGameEventEndpoint(ctx *fasthttp.RequestCtx) {
 	if err != nil {
 		h.logger.Println(err)
 		ctx.SetStatusCode(http.StatusBadRequest)
+
 		return
 	}
 
@@ -34,6 +35,7 @@ func (h *Handler) createGameEventEndpoint(ctx *fasthttp.RequestCtx) {
 	if err != nil {
 		h.logger.Println(err)
 		ctx.SetStatusCode(http.StatusInternalServerError)
+
 		return
 	}
 

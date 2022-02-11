@@ -6,10 +6,10 @@ import (
 )
 
 type Config struct {
-	Addr               string `env:"CLICKHOUSE_DB_ADDR,required"`
-	DBName             string `env:"CLICKHOUSE_DB_NAME,required"`
-	DBPassword         string `env:"CLICKHOUSE_DB_PASSWORD"`
-	DBUsername         string `env:"CLICKHOUSE_DB_USERNAME"`
+	Addr       string `env:"CLICKHOUSE_DB_ADDR,required"`
+	DBName     string `env:"CLICKHOUSE_DB_NAME,required"`
+	DBPassword string `env:"CLICKHOUSE_DB_PASSWORD"`
+	DBUsername string `env:"CLICKHOUSE_DB_USERNAME"`
 }
 
 func NewConfig() (*Config, error) {

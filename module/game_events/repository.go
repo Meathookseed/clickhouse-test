@@ -2,8 +2,9 @@ package events
 
 import (
 	"context"
-	"github.com/pkg/errors"
 	"project-clickhouse/db"
+
+	"github.com/pkg/errors"
 )
 
 type RepositoryInterface interface {
@@ -62,7 +63,6 @@ func (r *Repository) CreateMany(ctx context.Context, events []Event) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-
 
 	return nil
 }

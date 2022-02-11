@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+
 	goClickhouse "github.com/mailru/go-clickhouse"
 )
 
