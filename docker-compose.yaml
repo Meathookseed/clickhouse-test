@@ -1,0 +1,54 @@
+version: '3.6'
+
+services:
+  api_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+      args:
+        command: start
+    ports:
+      - "9191:9191"
+    volumes:
+      - .:/project
+    depends_on:
+      - "clickhouse"
+      - "migration"
+    env_file:
+      - .env
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+      args:
+        command: migrations:execute
+    volumes:
+      - .:/project
+    depends_on:
+      - "clickhouse"
+      - "client"
+    env_file:
+      - .env
+
+  clickhouse:
+    image: yandex/clickhouse-server
+    hostname: clickhouse
+    container_name: clickhouse
+    volumes:
+      - ./clickhouse-config/clickhouse-server/config.xml:/etc/clickhouse-server/config.xml
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+  client:
+    image: yandex/clickhouse-client
+    command: [ '--host', 'clickhouse', '--query', 'CREATE DATABASE IF NOT EXISTS project_clickhouse;']
+    depends_on:
+      - "clickhouse"

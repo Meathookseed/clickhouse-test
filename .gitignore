@@ -1,0 +1,5 @@
+.idea/
+.vscode/
+.run
+vendor/
+project-clickhouse
