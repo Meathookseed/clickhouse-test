@@ -15,22 +15,24 @@ func NewCreateGameEventEndpoint(h *Handler) *handler.Endpoint {
 
 type Handler struct {
 	service *Service
+	logger  *log.Logger
 }
 
-func NewHandler(service *Service) *Handler {
-	return &Handler{service: service}
+func NewHandler(service *Service, logger *log.Logger) *Handler {
+	return &Handler{service: service, logger: logger}
 }
 
 func (h *Handler) createGameEventEndpoint(ctx *fasthttp.RequestCtx) {
 	events, err := h.service.Deserialize(ctx.Request.Body())
 	if err != nil {
+		h.logger.Println(err)
 		ctx.SetStatusCode(http.StatusBadRequest)
 		return
 	}
 
 	err = h.service.CreateEvents(ctx, events, realip.FromRequest(ctx))
 	if err != nil {
-		log.Println(err)
+		h.logger.Println(err)
 		ctx.SetStatusCode(http.StatusInternalServerError)
 		return
 	}
