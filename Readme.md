@@ -9,9 +9,9 @@
  2. Run `make load-test` to run bombardier presetted load testing.
 
 ### Current results for perf-testing with 200 connections and 10000 requests:
-![img.png](img.png)
-
+![load_test_200.png](load_test_200.png)
 ### Results for perf-testing with 400 connections and 20000 requests:
-![img_1.png](img_1.png)
+![load_test_400.png](load_test_400.png)
 
 ## P.S. Don't forget that real bottleneck for this perf tests is configuration and current tuning of clickhouse server
+![clickhouse_errors.png](clickhouse_errors.png)

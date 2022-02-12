@@ -2,10 +2,12 @@ package handler
 
 import (
 	"github.com/buaazp/fasthttprouter"
+	"log"
 )
 
 func NewRouter(
 	params NewRouterParams,
+	logger *log.Logger,
 ) *fasthttprouter.Router {
 	router := fasthttprouter.New()
 
@@ -13,7 +15,7 @@ func NewRouter(
 		router.Handle(
 			endpoint.Method,
 			endpoint.Path,
-			endpoint.Handler,
+			NewRecoverMiddleware(logger)(endpoint.Handler),
 		)
 	}
 

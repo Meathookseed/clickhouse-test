@@ -29,7 +29,7 @@ func (r *Repository) CreateMany(ctx context.Context, events []Event) error {
 		   ip
 	   ) VALUES
 	`
-	vals := []interface{}{}
+	vals := make([]interface{}, 0, len(events)*10)
 
 	for _, event := range events {
 		sqlStr += "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?),"
